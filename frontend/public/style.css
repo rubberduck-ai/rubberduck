@@ -34,6 +34,140 @@ body {
     flex-direction: column;
 }
 
+/* ========== 视图切换 ========== */
+.view {
+    display: none;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.view.active {
+    display: flex;
+}
+
+/* ========== 开始页面 ========== */
+.start-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.start-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.start-header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.start-header .subtitle {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.start-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    text-align: left;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.nav-icon {
+    font-size: 1.5rem;
+}
+
+.nav-text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* ========== 子页面通用 ========== */
+.sub-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.sub-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sub-header h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.sub-content {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.placeholder-text {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.back-btn {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-app .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
 .chat-app {
     display: flex;
     flex-direction: column;
@@ -41,12 +175,6 @@ body {
     max-width: 800px;
     margin: 0 auto;
     width: 100%;
-}
-
-.chat-header {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    flex-shrink: 0;
 }
 
 .chat-header h1 {
@@ -201,8 +329,33 @@ body {
         background-color: #f5f5f7;
     }
 
-    .chat-header {
+    .start-header .subtitle,
+    .placeholder-text {
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-btn {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: #fff;
+    }
+
+    .nav-btn:hover {
+        background: rgba(0, 0, 0, 0.04);
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .sub-header,
+    .chat-app .chat-header {
         border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .back-btn {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: #fff;
+    }
+
+    .back-btn:hover {
+        background: rgba(0, 0, 0, 0.04);
     }
 
     .chat-header .subtitle {

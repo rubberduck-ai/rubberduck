@@ -1,5 +1,23 @@
 import { MsgService } from "../bindings/github.com/rubberduck-ai/rubberduck/services";
 
+// ========== 视图切换 ==========
+const views = document.querySelectorAll('.view');
+const navBtns = document.querySelectorAll('[data-view]');
+
+function showView(viewId) {
+    views.forEach(v => {
+        v.classList.toggle('active', v.id === `view-${viewId}`);
+    });
+}
+
+navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const viewId = btn.dataset.view;
+        if (viewId) showView(viewId);
+    });
+});
+
+// ========== Chat Agent 逻辑 ==========
 const messagesEl = document.getElementById('messages');
 const userInputEl = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
