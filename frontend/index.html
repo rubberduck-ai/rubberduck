@@ -5,93 +5,12 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/wails.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" />
-    <title>Rubberduck AI</title>
+    <title>Rubber Duck</title>
 </head>
 
 <body>
-    <!-- 开始界面 -->
-    <div id="view-start" class="view active">
-        <div class="start-page">
-            <header class="start-header">
-                <h1>Rubberduck AI</h1>
-                <p class="subtitle">选择功能开始使用</p>
-            </header>
-            <nav class="start-nav">
-                <button class="nav-btn" data-view="chat">
-                    <span class="nav-icon">💬</span>
-                    <span class="nav-text">智能对话</span>
-                </button>
-                <button class="nav-btn" data-view="new-task">
-                    <span class="nav-icon">➕</span>
-                    <span class="nav-text">生成新任务</span>
-                </button>
-                <button class="nav-btn" data-view="task-mgmt">
-                    <span class="nav-icon">📋</span>
-                    <span class="nav-text">任务管理</span>
-                </button>
-            </nav>
-        </div>
-    </div>
-
-    <!-- 子页面1: Chat Agent 对话框 -->
-    <div id="view-chat" class="view">
-        <div class="chat-app">
-            <header class="chat-header">
-                <button class="back-btn" data-view="start" aria-label="返回">← 返回</button>
-                <div>
-                    <h1>智能对话</h1>
-                    <p class="subtitle">与 Rubberduck 助手交流</p>
-                </div>
-            </header>
-            <main class="chat-main">
-                <div class="messages" id="messages">
-                    <div class="message assistant">
-                        <div class="avatar">🦆</div>
-                        <div class="bubble">
-                            <p>你好！我是 Rubberduck，有什么可以帮你的吗？</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-area">
-                    <textarea id="userInput" placeholder="输入消息..." rows="1" autocomplete="off"></textarea>
-                    <button class="send-btn" id="sendBtn" aria-label="发送">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-                        </svg>
-                    </button>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- 子页面2: 生成新任务 -->
-    <div id="view-new-task" class="view">
-        <div class="sub-page">
-            <header class="sub-header">
-                <button class="back-btn" data-view="start" aria-label="返回">← 返回</button>
-                <h1>生成新任务</h1>
-            </header>
-            <main class="sub-content">
-                <p class="placeholder-text">生成新任务功能开发中...</p>
-            </main>
-        </div>
-    </div>
-
-    <!-- 子页面3: 任务管理 -->
-    <div id="view-task-mgmt" class="view">
-        <div class="sub-page">
-            <header class="sub-header">
-                <button class="back-btn" data-view="start" aria-label="返回">← 返回</button>
-                <h1>任务管理</h1>
-            </header>
-            <main class="sub-content">
-                <p class="placeholder-text">任务管理功能开发中...</p>
-            </main>
-        </div>
-    </div>
-
-    <script type="module" src="/src/main.js"></script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>

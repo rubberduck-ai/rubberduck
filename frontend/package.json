@@ -10,9 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@wailsio/runtime": "latest"
+    "@wailsio/runtime": "latest",
+    "bits-ui": "^1.3.0",
+    "clsx": "^2.1.1",
+    "lucide-svelte": "^0.469.0",
+    "marked": "^15.0.0",
+    "tailwind-merge": "^3.0.0",
+    "tailwind-variants": "^1.0.0"
   },
   "devDependencies": {
-    "vite": "^5.0.0"
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "svelte": "^5.0.0",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.0"
   }
 }
