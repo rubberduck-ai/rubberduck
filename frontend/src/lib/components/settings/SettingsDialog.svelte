@@ -4,70 +4,122 @@
   import Label from "$lib/components/ui/Label.svelte";
   import Select from "$lib/components/ui/Select.svelte";
   import Separator from "$lib/components/ui/Separator.svelte";
-  import Badge from "$lib/components/ui/Badge.svelte";
+  import Input from "$lib/components/ui/Input.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
+  import ScrollArea from "$lib/components/ui/ScrollArea.svelte";
+  import { Settings } from "lucide-svelte";
 
   const themeOptions = [
     { value: "light", label: "浅色" },
     { value: "dark", label: "深色" },
-    { value: "system", label: "跟随系统" },
+    { value: "system", label: "System" },
   ];
+
+  const providerOptions = [
+    { value: "routin", label: "Routin AI" },
+  ];
+
+  const modelOptions = [
+    { value: "gpt-4o", label: "GPT-4o" },
+  ];
+
+  let temperature = $state(0.7);
+  let maxTokens = $state(128000);
 
   function handleThemeChange(value: string) {
     uiStore.theme = value as Theme;
   }
 </script>
 
-<Dialog bind:open={uiStore.settingsOpen} title="设置" description="自定义你的 Rubber Duck 体验">
-  <div class="space-y-6 py-4">
-    <!-- Theme -->
-    <div class="space-y-2">
-      <Label>主题</Label>
-      <Select
-        options={themeOptions}
-        value={uiStore.theme}
-        onchange={handleThemeChange}
-      />
-      <p class="text-xs text-muted-foreground">选择应用的外观主题</p>
-    </div>
-
-    <Separator />
-
-    <!-- Language -->
-    <div class="space-y-2">
-      <Label>语言</Label>
-      <Select
-        options={[{ value: "zh-CN", label: "简体中文" }, { value: "en", label: "English" }]}
-        value="zh-CN"
-        onchange={() => {}}
-      />
-      <p class="text-xs text-muted-foreground">界面显示语言（暂未实现）</p>
-    </div>
-
-    <Separator />
-
-    <!-- Model -->
-    <div class="space-y-2">
-      <Label>AI 模型</Label>
-      <div class="flex items-center gap-2">
-        <Badge variant="outline">
-          {#snippet children()}
-            Rubber Duck (Stub)
-          {/snippet}
-        </Badge>
+<Dialog bind:open={uiStore.settingsOpen} title="快速设置" description="快速切换模型和调整参数">
+  <ScrollArea class="max-h-[60vh]">
+    <div class="space-y-6 py-4 pr-3">
+      <!-- AI Provider -->
+      <div class="space-y-2">
+        <Label>AI 服务商</Label>
+        <Select
+          options={providerOptions}
+          value="routin"
+          onchange={() => {}}
+        />
       </div>
-      <p class="text-xs text-muted-foreground">当前使用的是本地回声服务，后续将接入 AI 模型</p>
-    </div>
 
-    <Separator />
+      <!-- Model -->
+      <div class="space-y-2">
+        <Label>模型</Label>
+        <Select
+          options={modelOptions}
+          value="gpt-4o"
+          onchange={() => {}}
+        />
+      </div>
 
-    <!-- About -->
-    <div class="space-y-2">
-      <Label>关于</Label>
-      <div class="text-sm text-muted-foreground space-y-1">
-        <p>Rubber Duck v0.1.0</p>
-        <p>基于 Wails v3 + Svelte 5 构建</p>
-        <p>橡皮鸭调试法 — 把问题说出来，答案自然浮现</p>
+      <!-- Fast Model -->
+      <div class="space-y-2">
+        <Label>快速模型</Label>
+        <p class="text-xs text-muted-foreground">用于标题生成和子代理任务</p>
+        <Select
+          options={modelOptions}
+          value="gpt-4o"
+          onchange={() => {}}
+        />
+      </div>
+
+      <Separator />
+
+      <!-- Temperature -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <Label>Temperature</Label>
+          <span class="text-sm text-muted-foreground">{temperature}</span>
+        </div>
+        <input 
+          type="range" 
+          min="0" 
+          max="2" 
+          step="0.1" 
+          bind:value={temperature}
+          class="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary mb-3"
+        />
+      </div>
+
+      <!-- Max Tokens -->
+      <div class="space-y-2">
+        <Label>最大 Token 数</Label>
+        <Input type="number" bind:value={maxTokens} />
+        <div class="flex gap-2 mt-2">
+          {#each [8000, 16000, 31000, 63000, 125000] as tokens}
+            <button 
+              class="px-2 py-1 text-xs rounded-md transition-colors {maxTokens === tokens ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}"
+              onclick={() => maxTokens = tokens}
+            >
+              {tokens >= 1000 ? `${Math.round(tokens/1000)}K` : tokens}
+            </button>
+          {/each}
+        </div>
+      </div>
+
+      <Separator />
+
+      <!-- Theme -->
+      <div class="space-y-2">
+        <Label>主题</Label>
+        <Select
+          options={themeOptions}
+          value={uiStore.theme}
+          onchange={handleThemeChange}
+        />
+      </div>
+
+      <Separator />
+
+      <!-- Open Full Settings -->
+      <div class="flex justify-center">
+        <Button variant="ghost" size="sm" class="text-muted-foreground hover:text-foreground">
+          <Settings class="h-4 w-4 mr-2" />
+          打开完整设置
+        </Button>
       </div>
     </div>
-  </div>
+  </ScrollArea>
 </Dialog>
