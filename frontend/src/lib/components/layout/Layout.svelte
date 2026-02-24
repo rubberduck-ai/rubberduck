@@ -1,6 +1,7 @@
 <script lang="ts">
   import { uiStore } from "$lib/stores/ui-store.svelte";
   import { chatStore } from "$lib/stores/chat-store.svelte";
+  import { slide } from "svelte/transition";
   import TopBar from "./TopBar.svelte";
   import AppSidebar from "./AppSidebar.svelte";
   import MessageList from "$lib/components/chat/MessageList.svelte";
@@ -39,6 +40,12 @@
     } else if (isCtrl && e.shiftKey && (e.key === "D" || e.key === "d")) {
       e.preventDefault();
       uiStore.toggleTheme();
+    } else if (isCtrl && e.key === "1") {
+      e.preventDefault();
+      uiStore.activeMode = "chat";
+    } else if (isCtrl && e.key === "2") {
+      e.preventDefault();
+      uiStore.activeMode = "collab";
     }
   }
 </script>
@@ -46,19 +53,19 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <div class="flex flex-col h-screen w-screen overflow-hidden bg-background text-foreground">
-  <!-- TopBar -->
+  <!-- TopBar: full width -->
   <TopBar />
 
-  <!-- Main content row -->
-  <div class="flex flex-1 overflow-hidden">
+  <!-- Three-column layout below TopBar -->
+  <div class="flex flex-1 min-h-0 overflow-hidden">
     <!-- Left Sidebar -->
     {#if uiStore.leftSidebarOpen}
-      <div class="shrink-0 transition-all duration-200">
+      <div class="shrink-0 h-full" transition:slide={{ axis: 'x', duration: 200 }}>
         <AppSidebar />
       </div>
     {/if}
 
-    <!-- Chat Area (flex-1) -->
+    <!-- Main content -->
     <main class="flex flex-col flex-1 min-w-0 overflow-hidden">
       <MessageList />
       <InputArea />
@@ -66,7 +73,7 @@
 
     <!-- Right Panel -->
     {#if uiStore.rightPanelOpen}
-      <div class="shrink-0 transition-all duration-200">
+      <div class="shrink-0 h-full" transition:slide={{ axis: 'x', duration: 200 }}>
         <RightPanel />
       </div>
     {/if}

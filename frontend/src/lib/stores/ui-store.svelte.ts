@@ -1,5 +1,6 @@
 export type Theme = "light" | "dark" | "system";
-export type RightPanelTab = "steps" | "plan" | "files" | "context" | "skills";
+export type RightPanelTab = "steps" | "plan" | "files" | "artifacts" | "context" | "skills" | "timer";
+export type AppMode = "chat" | "collab";
 
 function createUIStore() {
   let leftSidebarOpen = $state(true);
@@ -8,6 +9,7 @@ function createUIStore() {
   let settingsOpen = $state(false);
   let shortcutsOpen = $state(false);
   let commandPaletteOpen = $state(false);
+  let activeMode = $state<AppMode>("chat");
   let theme = $state<Theme>(
     (typeof localStorage !== "undefined" && localStorage.getItem("theme") as Theme) || "dark"
   );
@@ -50,6 +52,16 @@ function createUIStore() {
 
     get commandPaletteOpen() { return commandPaletteOpen; },
     set commandPaletteOpen(v) { commandPaletteOpen = v; },
+
+    get activeMode() { return activeMode; },
+    set activeMode(v) { 
+      activeMode = v; 
+      if (v === 'chat') {
+        rightPanelOpen = false;
+      } else if (v === 'collab') {
+        rightPanelOpen = true;
+      }
+    },
 
     get theme() { return theme; },
     set theme(v: Theme) {
